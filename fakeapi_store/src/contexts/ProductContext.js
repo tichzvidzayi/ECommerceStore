@@ -7,12 +7,19 @@ const ProductProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const response = await fetch(`https://fakestoreapi.com/products`);
+      try {
+        const response = await fetch(`https://fakestoreapi.com/products`);
 
-      const data = await response.json();
-  
-
-      setProducts(data);
+        if (!response.ok) {
+          // If the response status is not OK (e.g., 404 Not Found), throw an error
+          throw new Error("Network response was not ok");
+        }
+        
+        const data = await response.json();
+        setProducts(data);
+      } catch (error) {
+        console.log(error.message || "An error occurred");
+      }
     };
     fetchProducts();
   }, []);

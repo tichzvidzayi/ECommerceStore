@@ -4,8 +4,8 @@ export const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
-  const [itemAmount, setAmount] = useState(0);
-  const [total, setTotal] = useState(0);
+  const [itemAmount, setAmount] = useState(0); // count
+  const [total, setTotal] = useState(0); // total price
 
   const removeFromCart = (id) => {
     const newCart = cart.filter((item) => {
@@ -35,17 +35,18 @@ const CartProvider = ({ children }) => {
       setCart([...cart, newItem]);
     }
   };
-  //console.log(cart);
 
   const clearCart = () => {
     setCart([]);
   };
 
+  //increase item quantity
   const increase = (id) => {
     const item = cart.find((item) => item.id === id);
     addToCart(item, id);
   };
 
+  //decrease item quantity
   const decrease = (id) => {
     const cartItem = cart.find((item) => item.id === id);
 
@@ -59,34 +60,30 @@ const CartProvider = ({ children }) => {
       });
 
       setCart(newCart);
-    } else {
-      if (cartItem.amount < 2) {
-        removeFromCart(id);
-      }
+    }
+    if (cartItem.amount < 2) {
+      removeFromCart(id);
     }
   };
 
-useEffect(()=>{
- const total = cart.reduce ((acc , currentItem)=>{
+  //Set Cart total
+  useEffect(() => {
+    const total = cart.reduce((acc, currentItem) => {
+      return acc + currentItem.price * currentItem.amount;
+    }, 0);
 
-  return acc + (currentItem.price *currentItem.amount);
- }, 0);
+    setTotal(total);
+  }, [cart]);
 
-setTotal(total);
-})
-
+  //set cart itemAmount/count
   useEffect(() => {
     if (cart) {
       const itemAmount = cart.reduce((acc, currentItem) => {
         return acc + currentItem.amount;
       }, 0);
-
-      setTotal(itemAmount);
+      setAmount(itemAmount);
     }
   }, [cart]);
-
-
-
 
   return (
     <CartContext.Provider
@@ -98,7 +95,7 @@ setTotal(total);
         increase,
         decrease,
         itemAmount,
-        total
+        total,
       }}
     >
       {children}

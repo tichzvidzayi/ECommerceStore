@@ -1,9 +1,6 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
-
 import { IoMdArrowForward } from "react-icons/io";
 import { FiTrash2 } from "react-icons/fi";
-
 import CartItem from "../components/CartItem";
 import { SidebarContext } from "../contexts/SidebarContext";
 import { CartContext } from "../contexts/CartContext";
@@ -11,7 +8,7 @@ import { CartContext } from "../contexts/CartContext";
 const Sidebar = () => {
   const { isOpen, handleClose } = useContext(SidebarContext);
 
- const {cart, clearCart, total} =( useContext(CartContext));
+  const { cart, clearCart, total, itemAmount } = useContext(CartContext);
   return (
     <div
       className={`${
@@ -20,7 +17,7 @@ const Sidebar = () => {
     >
       <div className="flex items-center  justify-between py-6 border-b">
         <div className="uppercase text-sm font-semibold">
-          Shopping Cart ( 0)
+          Shopping Cart ({itemAmount})
         </div>
 
         {/* icons */}
@@ -34,23 +31,25 @@ const Sidebar = () => {
       </div>
 
       <div>
-            {cart.map(item=>{
-
-              return <CartItem item={item} key ={item.id}/>
-            })}
+        {cart.map((item) => {
+          return <CartItem item={item} key={item.id} />;
+        })}
       </div>
 
-
-      <div className="bg-pink-100 flex flex-col gap-y-3 py-4 mt-4"> 
-    <div className="flex w-full justify-between items-center">
-
-    </div >
-    <div className="font-semibold ">
-      <span className="mr-2"> Total: </span> R {parseFloat(total).toFixed(2)}
-      </div>
+      <div className="flex flex-col gap-y-5 py-5 mt-4">
+        <div className="flex w-full justify-between items-center"></div>
+        <div className="font-semibold ">
+          <span className="mr-2">
+             Total: </span> R{parseFloat(total).toFixed(2)}
+        </div>
       </div>
 
-      <div onClick={clearCart} className="cursor-pointer py-4 bg-red-300 text-white w-12 h-12 flex justify-center items-center text-xl"><FiTrash2/></div>
+      <div
+        onClick={clearCart}
+        className="cursor-pointer py-4 bg-red-700 text-white w-12 h-12 flex justify-center items-center text-xl"
+      >
+        <FiTrash2 />
+      </div>
     </div>
   );
 };

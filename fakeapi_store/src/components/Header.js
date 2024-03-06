@@ -2,25 +2,26 @@ import React, { useContext } from "react";
 import { SidebarContext } from "../contexts/SidebarContext";
 import { BsCart } from "react-icons/bs";
 import { CartContext } from "../contexts/CartContext";
-import { Link } from "react-router-dom";
 
 const Header = () => {
   const { isOpen, setIsOpen } = useContext(SidebarContext);
-  const { total} = useContext(CartContext);
+  const { itemAmount } = useContext(CartContext);
   return (
-    
-      <header className="bg-gray-200
-       " >
-       
-      <div 
+    <header
+      className="bg-gray-100 py-4 shadow-md fixed w-full z-10 transition-all
+       "
+    >
+      <div
         onClick={() => setIsOpen(!isOpen)}
-        className=" py-1  cursor-pointer flex relative max-w-[5000px]"
+        className="  cursor-pointer flex relative"
       >
-        <BsCart className="text-2xl  " />
-
+        <h1>Cart</h1>
+        <BsCart className="text-2xl" />
+        <div className="bg-red-500 absolute left-12 px-3 py-3  -bottom-5 text-[13px] w-[18px] h-[18px] text-white rounded-full flex justify-center items-center">
+         {/* Count cart Items */}   {itemAmount}
+        </div>
       </div>
-      </header>
-    
+    </header>
   );
 };
 
