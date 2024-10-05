@@ -43,12 +43,18 @@ const Product = ({ product }) => {
         {/*Add category, title and price */}
 
         <div className="text-sm capitalize text-gray-500 mb-1">
-          <div>{category}</div>
+          <div>
+            {category}
+          </div>
 
           <Link to={`/product/${id}`}>
-            <h2 className=" font-semibold  ">{title}</h2>
+            <h2 className=" font-semibold  ">
+              {title}
+            </h2>
           </Link>
-          <h2 className=" font-semibold">R {price}</h2>
+          <h2 className=" font-semibold">
+            R {price}
+          </h2>
         </div>
       </div>
     </div>

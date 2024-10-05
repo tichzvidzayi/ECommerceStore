@@ -7,48 +7,61 @@ import { CartContext } from "../contexts/CartContext";
 
 const Sidebar = () => {
   const { isOpen, handleClose } = useContext(SidebarContext);
-
   const { cart, clearCart, total, itemAmount } = useContext(CartContext);
+
   return (
     <div
-      className={`${
-        isOpen ? "right-0" : "-right-full"
-      } w-full bg-white fixed  top-0 h-full shadow-2xl md:w-[35vw] xl:max-w-[30vw] transition-all duration-300 z-20 px-4 lg:px-[35px]`}
+      className={`${isOpen
+        ? "right-0"
+        : "-right-full"} fixed top-0 h-full w-full md:w-[35vw] xl:max-w-[30vw] bg-white shadow-2xl transition-all duration-300 z-20 px-6 py-4 lg:px-8`}
     >
-      <div className="flex items-center  justify-between py-6 border-b">
-        <div className="uppercase text-sm font-semibold">
+      {/* Header */}
+      <div className="flex items-center justify-between py-6 border-b">
+        <h2 className="uppercase text-lg font-semibold">
           Shopping Cart ({itemAmount})
-        </div>
+        </h2>
 
-        {/* icons */}
-
-        <div
+        {/* Close Icon */}
+        <button
           onClick={handleClose}
-          className=" cursor-pointer w-8 h-8 flex justify-center items-center"
+          className="cursor-pointer w-10 h-10 flex justify-center items-center bg-gray-100 rounded-full hover:bg-gray-200 transition"
         >
-          <IoMdArrowForward className="text-2xl" />
+          <IoMdArrowForward className="text-2xl text-gray-600" />
+        </button>
+      </div>
+
+      {/* Cart Items */}
+      <div className="flex-1 overflow-y-auto mt-4 space-y-4">
+        {cart.length > 0
+          ? cart.map(item => <CartItem item={item} key={item.id} />)
+          : <p className="text-center text-gray-500">Your cart is empty.</p>}
+      </div>
+
+      {/* Total and Buttons Section */}
+      <div className="mt-6">
+        <div className="flex justify-between items-center border-t pt-4">
+          <span className="text-lg font-semibold">Total:</span>
+          <span className="text-xl font-bold text-primary">
+            R{parseFloat(total).toFixed(2)}
+          </span>
         </div>
-      </div>
 
-      <div>
-        {cart.map((item) => {
-          return <CartItem item={item} key={item.id} />;
-        })}
-      </div>
+        {/* Clear Cart Button */}
+        <button
+          onClick={clearCart}
+          className="mt-6 w-full py-3 bg-red-600 text-white flex items-center justify-center rounded-full hover:bg-red-700 transition"
+        >
+          <FiTrash2 className="text-xl mr-2" />
+          Clear Cart
+        </button>
 
-      <div className="flex flex-col gap-y-5 py-5 mt-4">
-        <div className="flex w-full justify-between items-center"></div>
-        <div className="font-semibold ">
-          <span className="mr-2">
-             Total: </span> R{parseFloat(total).toFixed(2)}
-        </div>
-      </div>
-
-      <div
-        onClick={clearCart}
-        className="cursor-pointer py-4 bg-red-700 text-white w-12 h-12 flex justify-center items-center text-xl"
-      >
-        <FiTrash2 />
+        {/* Pay Now Button */}
+        <button
+          onClick={() => alert("Proceeding to Payment...")}
+          className="mt-4 w-full py-3 bg-green-600 text-white flex items-center justify-center rounded-full hover:bg-green-700 transition"
+        >
+          Pay Now
+        </button>
       </div>
     </div>
   );

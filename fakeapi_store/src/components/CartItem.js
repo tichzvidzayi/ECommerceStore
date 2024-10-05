@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import {
   IoMdCloseCircle,
   IoMdRemoveCircle,
-  IoMdAddCircle,
+  IoMdAddCircle
 } from "react-icons/io";
 import { CartContext } from "../contexts/CartContext";
 
@@ -12,58 +12,57 @@ const CartItem = ({ item }) => {
   const { id, title, image, price, amount } = item;
 
   return (
-    <div className="flex gap-x-4 py-2 lg:px-6 border-b border-gray-300 w-full font-light text-gray-500 ">
-      <div className="w-full min-h-[150px] flex items-center gap-x-4">
-        {/* image and description */}
-
-        <Link to={`/product/${id}`}>
-          <img className="max-w-[80px] " src={image} alt="item" />
+    <div className="flex gap-x-4 py-4 border-b border-gray-300 w-full font-light text-gray-500">
+      {/* Container for image and details */}
+      <div className="w-full flex items-center gap-x-4">
+        {/* Product image */}
+        <Link to={`/product/${id}`} className="min-w-[80px]">
+          <img className="max-w-[80px]" src={image} alt="item" />
         </Link>
 
-        <div className=" w-full flex flex-col">
-          {/*Add title  */}
-          <div className="flex justify-between mb-2">
+        {/* Product title, quantity, and price */}
+        <div className="w-full flex flex-col">
+          {/* Product title */}
+          <div className="flex justify-between items-center mb-2">
             <Link
-              className=" text-sm  font-medium max-w-[240px] text-primary hover:underline"
+              className="text-sm font-medium text-primary max-w-[240px] hover:underline"
               to={`/product/${id}`}
             >
               {title}
             </Link>
-
-            {/*Add  icon */}
-
-            <div
-              onClick={() => removeFromCart(id)}
-              className="text-xl cursor-pointer"
-            >
-              <IoMdCloseCircle className=" text-gray-600 gap-3 hover:text-red-500 transition " />
-            </div>
           </div>
 
-          <div className=" flex gap-x-2 h-[36px] text-sm">
-            {/*Add  quantity*/}
-
-            <div className="flex flex-1 max-w-[100px] items-center h-full border text-primary font-medium ">
-              <div onClick={() => decrease(id)} className="flex-1">
-                <IoMdRemoveCircle />
-              </div>
-
-              <div className="h-full flex justify-center items-center px-2">
+          {/* Quantity controls and price */}
+          <div className="flex gap-x-4 items-center text-sm">
+            {/* Quantity controls */}
+            <div className="flex items-center border border-gray-300 rounded">
+              <IoMdRemoveCircle
+                onClick={() => decrease(id)}
+                className="text-xl text-primary cursor-pointer"
+              />
+              <span className="px-4">
                 {amount}
-              </div>
-              <div
+              </span>
+              <IoMdAddCircle
                 onClick={() => increase(id)}
-                className="flex-1  h-full flex justify-center items-center cursor-pointer"
-              >
-                <IoMdAddCircle />
-              </div>
+                className="text-xl text-primary cursor-pointer"
+              />
             </div>
-            <div className="flex-1 flex  justify-end items-center text-primary font-medium">
-                {/* Display Price in Rands/ZAR */}
+
+            {/* Price */}
+            <div className="ml-auto font-medium text-primary">
               {`R ${parseFloat(price * amount).toFixed(2)}`}
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Cart icon in the top-right corner */}
+      <div className="fixed top-4 right-4">
+        <IoMdCloseCircle
+          onClick={() => removeFromCart(id)}
+          className="text-3xl text-gray-600 cursor-pointer hover:text-red-500 transition"
+        />
       </div>
     </div>
   );
