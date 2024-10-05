@@ -13,7 +13,7 @@ const Footer = () => {
             <p className="text-sm">
               Welcome to FakeAPI Store, your go-to destination for all your
               ecommerce needs. We offer a wide range of products at competitive
-              prices with exceptional customer service.
+              prices with exceptional customer service in Africa.
             </p>
           </div>
 
