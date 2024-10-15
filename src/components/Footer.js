@@ -12,7 +12,7 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4">About Us</h3>
             <p className="text-sm">
               Welcome to FakeAPI Store, your go-to destination for all your
-              ecommerce needs. We offer a wide range of products at competitive
+              ecommerce needs. We offer a wide range of products at a competitive
               prices with exceptional customer service in Africa.
             </p>
           </div>
@@ -22,7 +22,7 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <a href="/about" className="hover:text-gray-300">
+                <a href="#about" className="hover:text-gray-300">
                   About Us
                 </a>
               </li>
