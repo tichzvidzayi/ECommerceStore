@@ -81,7 +81,7 @@ const Footer = () => {
           <p>© 2024 ECommerce FakeAPI Store. All rights reserved.</p>
           <p>
             Designed by{" "}
-            <a href="#" className="hover:text-gray-300">
+            <a href="https://github.com/tichzvidzayi" className="hover:text-gray-300">
               Tich Zvidzayi
             </a>
           </p>
