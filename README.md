@@ -3,6 +3,7 @@
 
 A **React** application styled with **Tailwind CSS** that utilizes the **FakeStore API** to create a dynamic and fully functional e-commerce website. This project demonstrates how to build a product listing page, product detail page, and shopping cart functionality using React, Tailwind CSS, and API data fetching.
 
+
 ### Features
 - **Product Listings**: Displays all products fetched from the FakeStore API with detailed descriptions, prices, and categories.
 - **Product Details**: Users can click on any product to view more information on a dedicated page.
